@@ -21,8 +21,9 @@ app.get("/produtos",async(req,res)=>{
             port:process.env.dbport?parseInt(process.env.dbport):3306
         })
          //2 - Realizar uma consulta na tabela
-        const resposta = await conection.query("SELECT * from produtos")
-        res.send("Devolve Produtos")
+         const [result, fields] = await conection.query("SELECT * from produtos")
+        //3 - Devolver os dados pra quem pediu
+        res.send(result)
     }catch(e){
         res.status(500).send("Server ERROR")
     }
